@@ -1,0 +1,108 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	font-family: 'Monda'
+
+} 
+.header{
+	color: white;
+	text-align: center;
+	text-transform: uppercase;
+}
+.print{
+	color: white;
+	margin-top: 50px;
+	margin-bottom: 10px;
+
+}
+.size{
+	color: white;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.material{
+	color: white;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.quantity{
+	color: white;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.menu {
+	position:  relative;
+	display: inline-block;
+}
+
+.menu ul {
+	text-align: center;
+	position: relative;
+	margin: 50px;
+	padding: 40px;
+	padding-left: 215px;
+
+				}
+
+.menu ul li{
+	display: inline-block;
+	margin:  0 50px;
+	position: relative;
+		
+				}
+
+.menu ul li a{
+	color:  #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: all ease 0.5s;
+	letter-spacing: .15rem;
+	
+	}
+
+.menu ul li a:hover{
+	color: #323232;
+	
+	}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #323232;
+  opacity: 0.6 ;
+  color: white;
+  z-index: 1;
+  min-width: 160px;
+  animation: all ease 0.3s;
+
+  padding-top: 10px;
+}
+
+.dropdown-menu a {
+	
+	min-height: 2em;
+  padding: 10px 16px;
+  text-decoration: none;
+  text-align: left;
+  display: block;
+
+}
+
+
+
+.btn:hover .dropdown-menu {
+	display: block;
+
+	animation: all ease 0.3s;
+
+}
+
+
+
+.dropdown-menu a:hover {background-color: #ddd;}
+

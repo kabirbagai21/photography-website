@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name= "viewport" content = "width-device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Prints</title>
+  <body style="background-color:black;">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Monda" rel="stylesheet">
+  <link href="prints.css" rel = "stylesheet"> </link>
+
+  <style>
+
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+</style>
+
+
+  <link rel= "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+  
+</head>
+
+<body>
+
+<div class="menu">
+      <ul>
+        <li><a href="index.html"><b>Home</b></li>
+        <li><a href="about.html"><b>About</b></a></li>
+        <li class= btn> <a href="#"><b>Collections </b><i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-menu">
+                    
+                      <a href="portrait.html">Portrait</a>
+                      <a href="urban.html">Urban</a>
+                      <a href="landscape.html">Landscape</a>
+                      <a href="creative.html">Creative</a>
+                      
+                    </div>
+                 </li>      
+        <li><a href="prints.html"><b>Prints</b></a></li>
+        <li><a href="contactform.html"><b>Contact</b></a></li>
+
+      </ul> 
+
+  </div>
+
+  
+  <div class= "header">
+    <h1> <u> Order Prints </u> </h1>
+    View Prints and Descriptions in "Collections"
+  </div>
+
+<div id="smart-button-container">
+      <div style="text-align: center;">
+        <div style="margin-bottom: 1.25rem;">
+          <p></p>
+          
+
+           <div class="print">Select Print<br><br>
+
+          <select id="print-options">
+            <option value="Golden Gate Bridge Sunset">Golden Gate Bridge Sunset</option>
+            <option value="Horseshoe Bend">Horseshoe Bend</option>
+            <option value="Canyon Overlook">Canyon Overlook</option>
+            <option value="The Watchman">The Watchman</option>
+            <option value="Zion Mountains">Zion Mountains</option>
+            <option value="Bryce Canyon">Bryce Canyon</option>
+            <option value="Valley Road">Valley Road</option>
+
+
+          </select>
+
+
+          <div class="size">Select Size<br><br>
+
+          <select id="item-options">
+            <option value="12x18" price="79.99">12x18: 79.99 USD</option>
+            <option value="16x20" price="119.99">16x20: 119.99 USD</option>
+            <option value="16x24" price="139.99">16x24: 139.99 USD</option>
+            <option value="20x30" price="219.99">20x30: 219.99 USD</option>
+            <option value="24x36" price="299.99">24x36: 299.99 USD</option>
+            <option value="30x40" price="379.99">30x40: 379.99 USD</option>
+
+
+          </select>
+        </div>
+          
+          <div class="material"> Select Material <br><br>
+         
+
+          <select id="material-options">
+            <option value="Poster" prices = "0"> Poster: +0.00 USD</option>
+            <option value="Matboard" prices = "0"> Matboard: +29.99 USD</option>
+            <option value="Metal" prices="59.99">Metal: +59.99 USD</option>
+            <option value="Acryllic" prices="69.99">Acryllic: +79.99 USD</option>
+          </select>
+        </div>
+
+         <div class="quantity"> Select Quantity <br><br>
+          <select style="visibility: hidden" id="quantitySelect"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select> <br> <br>
+
+          </div>
+
+        </div>
+
+      <div id="paypal-button-container"></div>
+      </div>
+
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  </body>
+
+    <script>
+      function initPayPalButton() {
+        var shipping = 0;
+        
+        var itemOptions = document.querySelector("#smart-button-container #item-options");
+   
+
+    var quantity = parseInt(12);
+    var materialOptions = document.querySelector("#smart-button-container #material-options");
+    var quantitySelect = document.querySelector("#smart-button-container #quantitySelect");
+    var printOptions = document.querySelector("#smart-button-container #print-options");
+
+    if (!isNaN(quantity)) {
+      quantitySelect.style.visibility = "visible";
+    }
+    var orderDescription = printOptions.options[printOptions.selectedIndex].value;;
+    if(orderDescription === '') {
+      orderDescription = 'Item';
+    }
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'black',
+        layout: 'vertical',
+        label: 'paypal',
+        
+      },
+      createOrder: function(data, actions) {
+        var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
+
+        var materialDescription = materialOptions.options[materialOptions.selectedIndex].value;
+
+        var selectedMaterialPrice = Number(materialOptions.options[materialOptions.selectedIndex].getAttribute("prices"));
+
+        var selectedSizePrice = Number(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));  
+
+       
+  
+        var selectedItemPrice = selectedSizePrice + selectedMaterialPrice; 
+
+
+        var tax = (0 === 0 || false) ? 0 : (selectedItemPrice * (parseFloat(0)/100));
+        if(quantitySelect.options.length > 0) {
+          quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
+        } else {
+          quantity = 1;
+        }
+
+        tax *= quantity;
+        tax = Math.round(tax * 100) / 100;
+        var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+        priceTotal = Math.round(priceTotal * 100) / 100;
+        var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+
+        return actions.order.create({
+          purchase_units: [{
+            description: orderDescription,
+            amount: {
+              currency_code: 'USD',
+              value: priceTotal,
+              breakdown: {
+                item_total: {
+                  currency_code: 'USD',
+                  value: itemTotalValue,
+                },
+                shipping: {
+                  currency_code: 'USD',
+                  value: shipping,
+                },
+                tax_total: {
+                  currency_code: 'USD',
+                  value: tax,
+                }
+              }
+            },
+            items: [{
+              name: selectedItemDescription + " " + materialDescription,
+              unit_amount: {
+                currency_code: 'USD',
+                value: selectedItemPrice,
+              },
+              quantity: quantity
+            }]
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(orderData) {
+          
+          // Full available details
+          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+          // Show a success message within this page, e.g.
+          const element = document.getElementById('paypal-button-container');
+          element.innerHTML = '';
+          element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+          // Or go to another URL:  actions.redirect('thank_you.html');
+
+        });
+      },
+      onError: function(err) {
+        console.log(err);
+      },
+    }).render('#paypal-button-container');
+  }
+  initPayPalButton();
+    </script>
